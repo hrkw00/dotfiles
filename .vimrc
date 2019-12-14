@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugged')
 Plug 'wincent/command-t'
+Plug 'mxw/vim-jsx'
 call plug#end()
 
 set hidden
@@ -48,11 +49,18 @@ set showmode
 
 syntax on
 
-autocmd QuickFixCmdPost *grep* cwindow
-
+"----------------------------------------------------
+" command-t
+"----------------------------------------------------
 nnoremap <silent> <C-t> :CommandT<CR>
 
 nnoremap <silent> <C-b> :CommandTBuffer<CR>
+
+"----------------------------------------------------
+" other keybinds
+"----------------------------------------------------
+
+autocmd QuickFixCmdPost *grep* cwindow
 
 nnoremap zz <Esc>:update<cr>
 
