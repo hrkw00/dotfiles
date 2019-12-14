@@ -1,9 +1,9 @@
 [user]
-	email = hiraryo.1019@gmail.com
-	name = hirakawa
+  email = hiraryo.1019@gmail.com
+  name = hirakawa
 
 [core]
-	excludesfile = /Users/ryosukehirakawa/.gitignore_global
+  excludesfile = /Users/ryosukehirakawa/.gitignore_global
 
 [alias]
   st = status
