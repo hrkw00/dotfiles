@@ -1,0 +1,36 @@
+[user]
+	email = hiraryo.1019@gmail.com
+	name = hirakawa
+
+[core]
+	excludesfile = /Users/ryosukehirakawa/.gitignore_global
+
+[alias]
+  st = status
+  cm = commit -m
+  sw = switch
+  br = branch
+  discard = restore .
+  vsdiff = difftool
+  dmb = ! git branch --merged | egrep -v '(^\\*|develop|staging|path-base)' | xargs git branch -d 
+
+[diff]
+  tool = vimdiff
+
+[difftool]
+  prompt = false
+
+[url "ssh://git@github.com:22/"]
+  insteadOf = git@github.com:
+  insteadOf = http://github.com/
+  insteadOf = https://github.com/
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path = 
+[mergetool "sourcetree"]
+  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+[pager]
+  branch = false
+[gui]
+  recentrepo = /Users/ryosukehirakawa/Projects/progate
