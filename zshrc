@@ -33,3 +33,6 @@ export PATH="$PATH:`pwd`/flutter/bin"
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
+# allias
+alias chrome="open -a 'Google Chrome'"
+
