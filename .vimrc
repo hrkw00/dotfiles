@@ -62,6 +62,4 @@ nnoremap <silent> <C-b> :CommandTBuffer<CR>
 
 autocmd QuickFixCmdPost *grep* cwindow
 
-nnoremap zz <Esc>:update<cr>
-
 autocmd CursorHold,CursorHoldI * update
