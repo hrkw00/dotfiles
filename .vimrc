@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugged')
 Plug 'wincent/command-t'
-Plug 'mxw/vim-jsx'
+Plug 'mattn/vim-starwars'
 call plug#end()
 
 set hidden
@@ -41,9 +41,9 @@ set ruler
 
 set clipboard+=unnamed
 
-set backspace=indent,eol,start
-
 set wildignore+=*/node_modules/*
+
+set backspace=indent,eol,start
 
 set showmode
 
@@ -64,3 +64,4 @@ autocmd QuickFixCmdPost *grep* cwindow
 
 nnoremap zz <Esc>:update<cr>
 
+autocmd CursorHold,CursorHoldI * update
