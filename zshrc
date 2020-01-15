@@ -36,10 +36,16 @@ export PATH=$PATH:$GOPATH/bin
 # allias
 alias chrome="open -a 'Google Chrome'"
 alias c="clear"
-alias ../="cd ../"
-alias ../../="cd ../../"
-alias ../../../="cd ../../../"
-alias find-password='(){ security find-generic-password -ga $1 | grep 'password:' }'
+alias ..='cd ..'
+
+# functions
+replace_word () {
+    grep -l $1 $3 | xargs sed -i -e "s/$1/$2/g"
+}
+
+find_password () {
+    security find-generic-password -ga $1 | grep 'password:' 
+}
 
 # Load version control information
 autoload -Uz vcs_info
