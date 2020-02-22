@@ -1,5 +1,4 @@
 call plug#begin('~/.vim/plugged')
-Plug 'wincent/command-t'
 Plug 'mattn/vim-starwars'
 Plug 'Shougo/denite.nvim'
 Plug 'roxma/nvim-yarp'
@@ -30,7 +29,7 @@ set cursorline
 
 set hlsearch
 
-set incsearch 
+set incsearch
 
 set autoindent
 
@@ -54,17 +53,12 @@ set modifiable
 
 set write
 
+set laststatus=2
+
 syntax on
 
 "----------------------------------------------------
-" command-t
-"----------------------------------------------------
-"nnoremap <silent> <C-t> :CommandT<CR>
-
-"nnoremap <silent> <C-b> :CommandTBuffer<CR>
-
-"----------------------------------------------------
-" denite 
+" denite
 "----------------------------------------------------
 nnoremap <silent> <C-t> :Denite file/rec<CR>
 
@@ -114,5 +108,7 @@ command! Dresume execute(":Denite -resume -buffer-name=grep-buffer-denite")
 
 autocmd QuickFixCmdPost *grep* cwindow
 
-autocmd CursorHold,CursorHoldI * update
+"autocmd CursorHold,CursorHoldI * update
+
+autocmd BufWritePre * %s/\s\+$//e
 
