@@ -14,7 +14,7 @@ export PATH=/usr/local/opt/mysql@5.7/bin:$PATH
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export ZSH=$HOME/.oh-my-zsh
 # ZSH_THEME="cobalt2"
-# 
+ 
 # source $ZSH/oh-my-zsh.sh
 
 # rbenv PATH
@@ -33,10 +33,15 @@ export PATH="$PATH:`pwd`/flutter/bin"
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
+# aws PATH
+export PATH=~/.local/bin:$PATH
+
 # allias
 alias chrome="open -a 'Google Chrome'"
 alias c="clear"
-alias ..='cd ..'
+alias ..="cd .."
+alias projects="cd ~/Projects"
+alias progate="cd ~/Projects/progate"
 
 # functions
 replace_word () {
@@ -45,6 +50,10 @@ replace_word () {
 
 find_password () {
     security find-generic-password -ga $1 | grep 'password:' 
+}
+
+create_localhost () {
+    python -m SimpleHTTPServer $1 --bind
 }
 
 # Load version control information
@@ -82,4 +91,14 @@ function show-git-branch-widh-color {
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
 PROMPT='%F{yellow}${PWD/#$HOME/~}%f `show-git-branch-widh-color` %F{yellow}> %f'
+
+# for complie
+if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
+  zcompile ~/.zshrc
+fi
+
+# for tmux
+if [ $SHLVL = 1 ]; then
+  tmux
+fi
 
