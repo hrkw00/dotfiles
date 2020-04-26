@@ -3,6 +3,12 @@ Plug 'mattn/vim-starwars'
 Plug 'Shougo/denite.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
+
+Plug 'sheerun/vim-polyglot'
+
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 call plug#end()
 
 set hidden
@@ -58,7 +64,7 @@ syntax on
 "----------------------------------------------------
 " denite
 "----------------------------------------------------
-nnoremap <silent> <C-t> :Denite file/rec<CR>
+nnoremap <silent> <C-p> :Denite file/rec<CR>
 
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
@@ -99,6 +105,35 @@ call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-
 
 command! Dgrep execute(":Denite grep -buffer-name=grep-buffer-denite")
 command! Dresume execute(":Denite -resume -buffer-name=grep-buffer-denite")
+
+
+"----------------------------------------------------
+" vim-lsp
+"----------------------------------------------------
+
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'whitelist': ['typescript', 'typescript.tsx'],
+        \ })
+endif
+
+
+if executable('flow')
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'flow',
+      \ 'cmd': {server_info->['flow', 'lsp']},
+      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.flowconfig'))},
+      \ 'whitelist': ['javascript', 'javascript.jsx'],
+      \ })
+endif
+
+let g:lsp_diagnostics_echo_cursor = 1
+
+nnoremap <silent> gh :LspHover<CR>
+nnoremap <silent> gg :LspDefinition<CR>
 
 "----------------------------------------------------
 " other keybinds
