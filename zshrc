@@ -1,5 +1,7 @@
 export LC_ALL=en_US.UTF-8
 
+eval "$(direnv hook zsh)"
+
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export MANPATH=/opt/local/man:$MANPATH
 
@@ -14,7 +16,7 @@ export PATH=/usr/local/opt/mysql@5.7/bin:$PATH
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export ZSH=$HOME/.oh-my-zsh
 # ZSH_THEME="cobalt2"
- 
+
 # source $ZSH/oh-my-zsh.sh
 
 # rbenv PATH
@@ -49,7 +51,7 @@ replace_word () {
 }
 
 find_password () {
-    security find-generic-password -ga $1 | grep 'password:' 
+    security find-generic-password -ga $1 | grep 'password:'
 }
 
 create_localhost () {
@@ -87,10 +89,10 @@ function show-git-branch-widh-color {
   fi
   echo "${branch_status}${vcs_info_msg_0_}%f"
 }
- 
+
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
-PROMPT='%F{yellow}${PWD/#$HOME/~}%f `show-git-branch-widh-color` %F{yellow}> %f'
+PROMPT='%F{yellow}${PWD/#$HOME/~}%f `show-git-branch-widh-color` %F{yellow}# %f'
 
 # for complie
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
