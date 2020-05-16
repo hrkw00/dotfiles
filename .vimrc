@@ -61,9 +61,27 @@ set laststatus=2
 
 syntax on
 
+
+"----------------------------------------------------
+" .vimrc.local
+"----------------------------------------------------
+"
+augroup vimrc-local
+  autocmd!
+  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+augroup END
+
+function! s:vimrc_local(loc)
+  let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
+  for i in reverse(filter(files, 'filereadable(v:val)'))
+    source `=i`
+  endfor
+endfunction
+
 "----------------------------------------------------
 " denite
 "----------------------------------------------------
+"
 nnoremap <silent> <C-p> :Denite file/rec<CR>
 
 autocmd FileType denite call s:denite_my_settings()
@@ -82,7 +100,7 @@ function! s:denite_my_settings() abort
   \ denite#do_map('toggle_select').'j'
 endfunction
 
-let s:ignore_globs = ['.git', '.svn', 'node_modules']
+let s:ignore_globs = ['.git', '.svn', 'node_modules', 'public']
 
 call denite#custom#var('file/rec', 'command', [
       \ 'ag',
@@ -120,7 +138,6 @@ if executable('typescript-language-server')
         \ })
 endif
 
-
 if executable('flow')
   au User lsp_setup call lsp#register_server({
       \ 'name': 'flow',
@@ -133,7 +150,8 @@ endif
 let g:lsp_diagnostics_echo_cursor = 1
 
 nnoremap <silent> gh :LspHover<CR>
-nnoremap <silent> gg :LspDefinition<CR>
+nnoremap <silent> <C-g> :LspDefinition<CR>
+
 
 "----------------------------------------------------
 " other keybinds
