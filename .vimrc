@@ -8,7 +8,6 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
 call plug#end()
 
 set hidden
@@ -59,7 +58,20 @@ set write
 
 set laststatus=2
 
+filetype plugin on
+
 syntax on
+
+"----------------------------------------------------
+" filetype
+"----------------------------------------------------
+
+augroup filetype
+  autocmd!
+  autocmd BufRead,BufNewFile *.ts setfiletype=typescript
+  autocmd BufRead,BufNewFile *.tsx setfiletype=typescript
+  autocmd BufRead,BufNewFile *.js setfiletype=javascript
+augroup END
 
 
 "----------------------------------------------------
@@ -81,7 +93,7 @@ endfunction
 "----------------------------------------------------
 " denite
 "----------------------------------------------------
-"
+
 nnoremap <silent> <C-p> :Denite file/rec<CR>
 
 autocmd FileType denite call s:denite_my_settings()
@@ -129,13 +141,18 @@ command! Dresume execute(":Denite -resume -buffer-name=grep-buffer-denite")
 " vim-lsp
 "----------------------------------------------------
 
+let g:lsp_diagnostics_echo_cursor = 1
+
+nnoremap <silent> gh :LspHover<CR>
+nnoremap <silent> <C-g> :LspDefinition<CR>
+
 if executable('typescript-language-server')
     au User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-        \ 'whitelist': ['typescript', 'typescript.tsx'],
-        \ })
+      \ 'name': 'typescript support using typescript-language-server',
+      \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+      \ 'whitelist': ['typescript', 'typescript.tsx', 'typescriptreact'],
+      \ })
 endif
 
 if executable('flow')
@@ -146,11 +163,6 @@ if executable('flow')
       \ 'whitelist': ['javascript', 'javascript.jsx'],
       \ })
 endif
-
-let g:lsp_diagnostics_echo_cursor = 1
-
-nnoremap <silent> gh :LspHover<CR>
-nnoremap <silent> <C-g> :LspDefinition<CR>
 
 
 "----------------------------------------------------

@@ -28,6 +28,8 @@ eval "$(rbenv init -)"
 export PATH="$HOME/.nodenv/bin:$PATH"
 eval "$(nodenv init -)"
 
+export PATH="$HOME/.anyenv/envs/ndenv/versions/12.0.0/bin:$PATH"
+
 # flutter PATH
 export PATH="$PATH:`pwd`/flutter/bin"
 
@@ -44,6 +46,8 @@ alias c="clear"
 alias ..="cd .."
 alias projects="cd ~/Projects"
 alias progate="cd ~/Projects/progate"
+alias notes="cd ~/Notes"
+alias tf="terraform"
 
 # functions
 replace_word () {
@@ -65,7 +69,7 @@ precmd() { vcs_info }
 # Format the vcs_info_msg_0_ variable
 zstyle ':vcs_info:git:*' formats '%b'
 
-function show-git-branch-widh-color {
+function show-git-branch-with-color {
   local branch_name st branch_status
 
   if [ ! -e  ".git" ]; then
@@ -92,7 +96,7 @@ function show-git-branch-widh-color {
 
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
-PROMPT='%F{yellow}${PWD/#$HOME/~}%f `show-git-branch-widh-color` %F{yellow}# %f'
+PROMPT='%F{yellow}${PWD/#$HOME/~}%f `show-git-branch-with-color` %F{yellow}# %f'
 
 # for complie
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
