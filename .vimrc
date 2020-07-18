@@ -1,13 +1,17 @@
 call plug#begin('~/.vim/plugged')
-Plug 'mattn/vim-starwars'
 Plug 'Shougo/denite.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 
-Plug 'sheerun/vim-polyglot'
-
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+Plug 'runoshun/tscompletejob'
+Plug 'prabirshrestha/asyncomplete-tscompletejob.vim'
+
+Plug 'prabirshrestha/asyncomplete-flow.vim'
 call plug#end()
 
 set hidden
@@ -95,6 +99,7 @@ endfunction
 "----------------------------------------------------
 
 nnoremap <silent> <C-p> :Denite file/rec<CR>
+nnoremap <silent> <C-h> :Dgrep<CR>
 
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
@@ -160,10 +165,44 @@ if executable('flow')
       \ 'name': 'flow',
       \ 'cmd': {server_info->['flow', 'lsp']},
       \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.flowconfig'))},
-      \ 'whitelist': ['javascript', 'javascript.jsx'],
+      \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact'],
       \ })
 endif
 
+"----------------------------------------------------
+" asyncomplete
+"----------------------------------------------------
+
+let g:asyncomplete_auto_popup = 1
+
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+
+if executable('typescript-language-server')
+    call asyncomplete#register_source(asyncomplete#sources#tscompletejob#get_source_options({
+        \ 'name': 'tscompletejob',
+        \ 'whitelist': ['typescript', 'typescript.tsx', 'typescriptreact'],
+        \ 'completor': function('asyncomplete#sources#tscompletejob#completor'),
+        \ }))
+endif
+
+
+if executable('flow')
+    au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#flow#get_source_options({
+        \ 'name': 'flow',
+        \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact'],
+        \ 'completor': function('asyncomplete#sources#flow#completor'),
+        \ }))
+endif
+
+"----------------------------------------------------
+" syntastic
+"----------------------------------------------------
+
+"let g:syntastic_javascript_checkers=['eslint']
 
 "----------------------------------------------------
 " other keybinds

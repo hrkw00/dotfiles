@@ -19,6 +19,14 @@ export PATH=/usr/local/opt/mysql@5.7/bin:$PATH
 
 # source $ZSH/oh-my-zsh.sh
 
+# pyenv PATH
+export PYENV_ROOT=${HOME}/.pyenv
+
+if [ -d "${PYENV_ROOT}" ]; then
+    export PATH=${PYENV_ROOT}/bin:$PATH
+    eval "$(pyenv init -)"
+fi
+
 # rbenv PATH
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -39,6 +47,9 @@ export PATH=$PATH:$GOPATH/bin
 
 # aws PATH
 export PATH=~/.local/bin:$PATH
+
+# rust
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # allias
 alias chrome="open -a 'Google Chrome'"
