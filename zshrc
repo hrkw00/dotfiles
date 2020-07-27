@@ -78,7 +78,7 @@ autoload -Uz vcs_info
 precmd() { vcs_info }
 
 # Format the vcs_info_msg_0_ variable
-zstyle ':vcs_info:git:*' formats '%b'
+zstyle ':vcs_info:git:*' formats '%b'
 
 function show-git-branch-with-color {
   local branch_name st branch_status
@@ -107,7 +107,7 @@ function show-git-branch-with-color {
 
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
-PROMPT='%F{yellow}${PWD/#$HOME/~}%f `show-git-branch-with-color` %F{yellow}# %f'
+PROMPT='%F{yellow}${PWD/#$HOME/~}%f `show-git-branch-with-color` %F{yellow}$ %f'
 
 # for complie
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
