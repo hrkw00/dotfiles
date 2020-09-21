@@ -38,9 +38,9 @@ set hlsearch
 
 set incsearch
 
-set autoindent
-
 set smartindent
+
+set autoindent
 
 set nocompatible
 

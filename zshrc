@@ -36,7 +36,9 @@ eval "$(rbenv init -)"
 export PATH="$HOME/.nodenv/bin:$PATH"
 eval "$(nodenv init -)"
 
-export PATH="$HOME/.anyenv/envs/ndenv/versions/12.0.0/bin:$PATH"
+# export PATH="$HOME/.nodenv/versions/*/bin:$PATH"
+
+# export PATH="$HOME/.anyenv/envs/ndenv/versions/10.16.0/bin:$PATH"
 
 # flutter PATH
 export PATH="$PATH:`pwd`/flutter/bin"
@@ -105,9 +107,20 @@ function show-git-branch-with-color {
   echo "${branch_status}${vcs_info_msg_0_}%f"
 }
 
+# show status emoji
+
+function show-status-emoji {
+  if [ $? -eq 0 ]; then
+    echo "（⌒ ▽ ⌒ ）"
+  else
+    echo "(T＿T)"
+  fi
+}
+
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
-PROMPT='%F{yellow}${PWD/#$HOME/~}%f `show-git-branch-with-color` %F{yellow}$ %f'
+# PROMPT=' `show-status-emoji` %F{yellow}${PWD/#$HOME/~}%f `show-git-branch-with-color`'
+PROMPT='%F{yellow}${PWD/#$HOME/~}%f `show-status-emoji` `show-git-branch-with-color` $ '
 
 # for complie
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
@@ -119,3 +132,4 @@ if [ $SHLVL = 1 ]; then
   tmux
 fi
 
+setopt inc_append_history
