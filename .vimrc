@@ -117,7 +117,7 @@ function! s:denite_my_settings() abort
   \ denite#do_map('toggle_select').'j'
 endfunction
 
-let s:ignore_globs = ['.git', '.svn', 'node_modules', 'public']
+let s:ignore_globs = ['.git', '.svn', 'node_modules']
 
 call denite#custom#var('file/rec', 'command', [
       \ 'ag',
