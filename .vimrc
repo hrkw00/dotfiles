@@ -15,7 +15,6 @@ Plug 'prabirshrestha/asyncomplete-flow.vim'
 call plug#end()
 
 set hidden
-
 set number
 
 set noswapfile
@@ -61,6 +60,8 @@ set modifiable
 set write
 
 set laststatus=2
+
+set grepprg=git\ grep\ -I\ --line-number
 
 filetype plugin on
 
