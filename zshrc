@@ -53,7 +53,7 @@ export PATH=~/.local/bin:$PATH
 # rust
 export PATH="$HOME/.cargo/bin:$PATH"
 
-# allias
+# alias
 alias chrome="open -a 'Google Chrome'"
 alias c="clear"
 alias ..="cd .."

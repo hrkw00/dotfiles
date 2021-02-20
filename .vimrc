@@ -12,9 +12,13 @@ Plug 'runoshun/tscompletejob'
 Plug 'prabirshrestha/asyncomplete-tscompletejob.vim'
 
 Plug 'prabirshrestha/asyncomplete-flow.vim'
+
+Plug 'styled-components/vim-styled-components', {'branch': 'main'}
+
 call plug#end()
 
 set hidden
+
 set number
 
 set noswapfile
@@ -37,7 +41,7 @@ set hlsearch
 
 set incsearch
 
-set smartindent
+"set smartindent
 
 set autoindent
 
@@ -63,7 +67,7 @@ set laststatus=2
 
 set grepprg=git\ grep\ -I\ --line-number
 
-filetype plugin on
+filetype on
 
 syntax on
 
@@ -215,3 +219,10 @@ autocmd QuickFixCmdPost *grep* cwindow
 
 autocmd BufWritePre * %s/\s\+$//e
 
+"----------------------------------------------------
+" prettier-eslint-cli
+"----------------------------------------------------
+"autocmd BufWritePre *.ts, *tsx :normal gggqG
+
+"autocmd FileType typescript set formatprg=prettier-eslint\ --stdin
+"autocmd FileType typescriptreact set formatprg=prettier-eslint\ --stdin
